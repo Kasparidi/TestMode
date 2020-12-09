@@ -5,11 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
-import ru.netology.data.ClientData;
-
 import java.util.Locale;
-
 import static io.restassured.RestAssured.given;
 
 
@@ -22,7 +18,6 @@ public class Generator {
             .log(LogDetail.ALL)
             .build();
 
-    @BeforeAll
     public static void setUpAll(ClientData clientData) {
         // сам запрос
         given() // "дано"
@@ -34,12 +29,35 @@ public class Generator {
                 .statusCode(200); // код 200 OK
     }
 
-    public static ClientData generateActive(String locale) {
+    public static ClientData shouldBeActive() {
         Faker faker = new Faker(new Locale("en"));
-        return new ClientData(
-                faker.name().firstName(),
-                faker.internet().password(),
-                "active");
+        String login = faker.name().firstName();
+        String password = faker.internet().password();
+        setUpAll(new ClientData(login, password, "active"));
+        return new ClientData(login, password,"active");
+    }
 
+    public static ClientData shouldBeBlocked() {
+        Faker faker = new Faker(new Locale("en"));
+        String login = faker.name().firstName();
+        String password = faker.internet().password();
+        setUpAll(new ClientData(login, password, "blocked"));
+        return new ClientData(login, password,"blocked");
+    }
+
+    public static ClientData shouldBeInvalidLogin() {
+        Faker faker = new Faker(new Locale("en"));
+        String password = faker.internet().password();
+        String status = "active";
+        setUpAll(new ClientData("оксана", password, status));
+        return new ClientData("оксана", password, status);
+    }
+
+    public static ClientData shouldBeInvalidPassword() {
+        Faker faker = new Faker(new Locale("en"));
+        String login = faker.name().firstName();
+        String status = "active";
+        setUpAll(new ClientData(login, "русский", status));
+        return new ClientData(login, "русский", status);
     }
 }

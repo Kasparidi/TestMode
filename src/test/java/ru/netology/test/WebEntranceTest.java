@@ -52,4 +52,12 @@ public class WebEntranceTest {
         $("[data-test-id='error-notification'] .notification__content").shouldHave(exactText("Ошибка! Неверно указан логин или пароль")).waitUntil(visible, 4000);
     }
 
+    @Test
+    void rewritingUser() {
+        ClientData clientData = Generator.rewritingUser();
+        $("[data-test-id=login] [name=login]").setValue(clientData.getLogin());
+        $("[data-test-id=password] [type=password]").setValue(clientData.getPassword());
+        $("[data-test-id=action-login] [class=button__text]").click();
+        $("h2").shouldHave(text("Личный кабинет"));
+    }
 }

@@ -1,6 +1,8 @@
 package ru.netology.data;
 
 import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -29,35 +31,52 @@ public class Generator {
                 .statusCode(200); // код 200 OK
     }
 
+    static Faker faker = new Faker(new Locale("en"));
+
+    public static String generatePassword() {
+        FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en"), new RandomService());
+        return fakeValuesService.bothify("???????");
+    }
+
+    public static String generateLogin() {
+        FakeValuesService fakeValuesService = new FakeValuesService(new Locale("en"), new RandomService());
+        return fakeValuesService.bothify("?????");
+    }
+
     public static ClientData shouldBeActive() {
-        Faker faker = new Faker(new Locale("en"));
-        String login = faker.name().firstName();
+        String login = faker.name().firstName().toLowerCase();
         String password = faker.internet().password();
         setUpAll(new ClientData(login, password, "active"));
         return new ClientData(login, password,"active");
     }
 
     public static ClientData shouldBeBlocked() {
-        Faker faker = new Faker(new Locale("en"));
-        String login = faker.name().firstName();
+        String login = faker.name().firstName().toLowerCase();
         String password = faker.internet().password();
         setUpAll(new ClientData(login, password, "blocked"));
         return new ClientData(login, password,"blocked");
     }
 
     public static ClientData shouldBeInvalidLogin() {
-        Faker faker = new Faker(new Locale("en"));
         String password = faker.internet().password();
         String status = "active";
-        setUpAll(new ClientData("оксана", password, status));
-        return new ClientData("оксана", password, status);
+        setUpAll(new ClientData(generateLogin(), password, status));
+        return new ClientData(generateLogin(), password, status);
     }
 
     public static ClientData shouldBeInvalidPassword() {
-        Faker faker = new Faker(new Locale("en"));
-        String login = faker.name().firstName();
+        String login = faker.name().firstName().toLowerCase();
         String status = "active";
-        setUpAll(new ClientData(login, "русский", status));
-        return new ClientData(login, "русский", status);
+        setUpAll(new ClientData(login, generatePassword(), status));
+        return new ClientData(login, generatePassword(), status);
+    }
+
+    public static ClientData rewritingUser() {
+        String login = faker.name().firstName().toLowerCase();
+        ClientData firstUser = new ClientData(login, generatePassword(), "active");
+        ClientData secondUser = new ClientData(login, generatePassword(), "active");
+        setUpAll(firstUser);
+        setUpAll(secondUser);
+        return secondUser;
     }
 }

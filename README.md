@@ -13,11 +13,15 @@
 ### TOOLS
 
 [![Build status](https://ci.appveyor.com/api/projects/status/wai7n07josn2iwh8?svg=true)](https://ci.appveyor.com/project/Kasparidi/testmode) CI AppVeyor  
-Page Object  
+Page Object, Headless Mode, Postman (как альтернатива)  
 Java, Gradle, Lombok, REST-assured, Faker, Selenide  
 Gson - возможность сериализовать (преобразовывать) Java-объекты в JSON
 
 ### CONCLUSION
+Время, затраченное на 
+ - автоматизированное тестирование и настройку - 8 часов.  
+ - ручное тестирование и настройку - 30 мин.
+
 Изучена реакция приложения на следующие случаи:
 * наличие пользователя
 * статус пользователя

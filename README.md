@@ -13,7 +13,7 @@
 ### TOOLS
 
 [![Build status](https://ci.appveyor.com/api/projects/status/wai7n07josn2iwh8?svg=true)](https://ci.appveyor.com/project/Kasparidi/testmode) CI AppVeyor  
-Page Object, Headless Mode, Postman (как альтернатива)  
+Page Object, Postman (как альтернатива)  
 Java, Gradle, Lombok, REST-assured, Faker, Selenide  
 Gson - возможность сериализовать (преобразовывать) Java-объекты в JSON
 
@@ -27,4 +27,3 @@ Gson - возможность сериализовать (преобразовы
 * статус пользователя
 * невалидный логин
 * невалидный пароль
-

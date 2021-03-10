@@ -3,7 +3,7 @@
 Клиентов Банка.
 ![img.png](src/test/resources/img.png)
 
-### TASK 
+### [TASK](https://github.com/netology-code/aqa-homeworks/tree/master/patterns) 
 Автоматизировать тестирование функции входа.
 
 ### LAUNCH
